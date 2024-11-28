@@ -1,0 +1,22 @@
+---
+- name: Install httpd
+  hosts: APPSERVER
+  become: true
+
+  tasks:
+    - name: Install httpd
+      yum:
+        name: httpd
+        state: present
+
+    - name: Start httpd service
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+
+    - name: Copy web content to /var/www/html location
+      copy:
+        src: /home/ansibleuser/index.html
+        dest: /var/www/html/index.html
+
